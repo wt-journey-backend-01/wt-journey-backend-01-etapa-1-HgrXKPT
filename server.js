@@ -52,15 +52,21 @@ app.get('/sugestao', (req, res) => {
 
 
 app.get('/contato', (req, res) => {
+    
     res.status(200).sendFile(path.join(__dirname, 'views', 'contato.html'));
 });
 
 app.post('/contato', (req, res) => {
     const{ nome, email, assunto, mensagem } = req.body;
-    
-    res.status(200).send(`
-            <!DOCTYPE html>
-            <html>
+
+        if (!nome) console.log("O campo [nome] é obrigatório");
+    if (!email) console.log("O campo [email] é obrigatório");
+    if (!assunto) console.log("O campo [assunto] é obrigatório");
+    if (!mensagem) console.log("O campo [mensagem] é obrigatório");
+
+    if(nome && email && assunto && mensagem){
+        res.status(200).send(`
+            
             <head><title>Obrigado!</title></head>
             <body>
                 <h1>Obrigado, ${nome}!</h1>
@@ -69,23 +75,19 @@ app.post('/contato', (req, res) => {
                 <p>Entraremos em contato pelo email: ${email}</p>
                 <a href="/">Voltar</a>
             </body>
-            </html>
+            
         `);
+    }
+    
 
+    });
 
-    res.status(200).send({
-        "Nome": nome, 
-        "Email": email, 
-        "Assunto": assunto, 
-        "Mensagem": mensagem}, 
-        "Obrigado, sua mensagem foi enviada com sucesso!");
-});
 
 
 
 
 app.get('/api/lanches', async (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
+    
 
     try{
         const pathFile = path.join(__dirname, 'public', 'data', 'lanches.json');
@@ -96,37 +98,57 @@ app.get('/api/lanches', async (req, res) => {
             });
         }
 
-        const data = await fs.readFileSync(pathFile, 'utf8')
+        const data = await fs.promises.readFile(pathFile, 'utf8')
+        let lanchesArray;
 
-        const lanchesArray = JSON.parse(data);
+        try{
+         lanchesArray = JSON.parse(data);
+        } catch (parseError) {
+            return res.status(400).json({
+                status: "error",
+                message: "Formato JSON inválido no arquivo de lanches"
+            });
+
+        }
 
         if (!Array.isArray(lanchesArray)) {
-            throw new Error('O arquivo não contém um array válido');
+            return res.status(400).json({
+                status: "error",
+                message: "O arquivo não contém um array válido de lanches"
+            });
         }
 
         
         if (lanchesArray.length < 3) {
-            throw new Error('O array deve conter pelo menos 3 lanches');
+            return res.status(400).json({
+                status: "error",
+                message: "O array deve conter pelo menos 3 lanches"
+            });
         }
 
         
         
         const isvalid = lanchesArray.every(lanches =>
-            lanches && typeof 
-            lanches.id  === 'number' &&
+            lanches && 
+            typeof lanches.id  === 'number' &&
             typeof lanches.nome === 'string' &&
             typeof lanches.ingredientes === 'string' &&
             lanches.nome.trim() !== '' &&
-            lanches.ingredientes.trim() !== '');
+            lanches.ingredientes.trim() !== '' &&
+            lanches.id > 0
+        );
 
             if (!isvalid) {
             throw new Error('Estrutura de dados inválida em um ou mais lanches');
         }
 
+        res.setHeader('Content-Type', 'application/json');
         res.status(200).json(lanchesArray);
+
     }catch (error) {
 
-        
+        res.setHeader('Content-Type', 'application/json');
+
         res.status(500).json({
             "status": "error",
             "message": "Erro ao ler o arquivo de lanches.",
@@ -138,8 +160,18 @@ app.get('/api/lanches', async (req, res) => {
 
 
 app.use((req, res, next) => {
-  res.status(404).sendFile(path.join(__dirname, "public", "404.html"));
+  res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+
 });
+
+app.use((err, req, res, next) => {
+    console.error('Erro não tratado:', err);
+    res.status(500).json({
+        status: "error",
+        message: "Erro interno no servidor"
+    });
+});
+
 
 app.listen(PORT, () => {
     console.log(`Servidor da DevBurger rodando em http://localhost:${PORT}`);
