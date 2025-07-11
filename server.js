@@ -6,7 +6,12 @@ const fs = require('fs');
 const { type } = require('os');
 
 app.use(express.json())
-app.use(express.urlencoded({ extended: true })); // Para formulários HTML
+app.use(express.urlencoded({ extended: true }));
+
+app.use((req, res, next) => {
+  res.status(404).sendFile(path.join(__dirname, "public", "404.html"));
+});
+
 
 app.get('/', (req, res) => {
     try{
@@ -77,6 +82,9 @@ app.post('/contato', (req, res) => {
         "Mensagem": mensagem}, 
         "Obrigado, sua mensagem foi enviada com sucesso!");
 });
+
+
+
 
 app.get('/api/lanches', async (req, res) => {
     res.setHeader('Content-Type', 'application/json');
