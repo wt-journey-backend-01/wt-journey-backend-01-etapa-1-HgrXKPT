@@ -17,14 +17,27 @@ app.get('/', (req, res) => {
 });
 
 app.get('/sugestao', (req, res) => {
-    const nome  = req.query.Nome;
-    const ingredientes = req.query.Ingredientes;
+    try{
+    const nome  = req.query.nome;
+    const ingredientes = req.query.ingredientes;
 
     if (!nome || !ingredientes) {
         return res.status(400).send('Nome e Ingredientes são obrigatórios.');
     };
-    try{
-         res.status(200).send(`Obrigado, ${nome}! Seus ingredientes "${ingredientes}" foi recebida.`);;
+
+    res.status(200).send(`
+            <!DOCTYPE html>
+            <html>
+            <head><title>Obrigado!</title></head>
+            <body>
+                <h1>Obrigado, ${nome}!</h1>
+                <p>Sua sugestão: ${ingredientes.replace(/\+/g, ' ')}</p>
+                <a href="/">Voltar</a>
+            </body>
+            </html>
+        `);
+    
+         
     }catch (error) {
         errorProcessarSugestao(error,res);
     }
@@ -41,6 +54,21 @@ app.get('/contato', (req, res) => {
 app.post('/contato', (req, res) => {
     const{ nome, email, assunto, mensagem } = req.body;
     
+    res.status(200).send(`
+            <!DOCTYPE html>
+            <html>
+            <head><title>Obrigado!</title></head>
+            <body>
+                <h1>Obrigado, ${nome}!</h1>
+                <p>Recebemos seu email sobre ${assunto}</p>
+                <p>Sua mensagem: ${mensagem}</p>
+                <p>Entraremos em contato pelo email: ${email}</p>
+                <a href="/">Voltar</a>
+            </body>
+            </html>
+        `);
+
+
     res.status(200).send({
         "Nome": nome, 
         "Email": email, 
@@ -49,11 +77,28 @@ app.post('/contato', (req, res) => {
         "Obrigado, sua mensagem foi enviada com sucesso!");
 });
 
-app.get('/api/lanches', (req, res) => {
+app.get('/api/lanches', async (req, res) => {
     try{
-        const data = fs.readFileSync(path.join(__dirname,'public' , 'data', 'lanches.json'), 'utf8');
+        const pathFile = path.join(__dirname, 'public', 'data', 'lanches.json');
+        if (!fs.existsSync(pathFile)) {
+            return res.status(404).json({
+                "status": "error",
+                "message": "Arquivo de lanches não encontrado."
+            });
+        }
+
+        const data = await fs.promises.readFile(pathFile, 'utf8')
         const lanches = JSON.parse(data);
-        res.status(200).json(lanches);
+
+
+
+        res.status(200).json(
+            {
+                "status": "success",
+                "data": lanches
+            }
+
+        );
     }catch (error) {
         errorProcessarSugestao(error,res);
     }
