@@ -87,20 +87,34 @@ app.get('/api/lanches', async (req, res) => {
             });
         }
 
-        const data = await fs.promises.readFile(pathFile, 'utf8')
-        const lanches = JSON.parse(data);
+        const data = await fs.readFileSync(pathFile, 'utf8')
+
+        const lanchesArray = JSON.parse(data);
+
+        if(!Array.isArray(lanchesArray)){
+            res.status(500).json({
+                "status": "error",
+                "message": "O arquivo de lanches não contém um array válido."
+        });
+    }
 
 
 
         res.status(200).json(
             {
                 "status": "success",
-                "data": lanches
+                "data": lanchesArray
             }
 
         );
     }catch (error) {
-        errorProcessarSugestao(error,res);
+
+        
+        res.status(500).json({
+            "status": "error",
+            "message": "Erro ao ler o arquivo de lanches.",
+            "error": error.message
+        });
     }
 
 });
