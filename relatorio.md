@@ -1,27 +1,41 @@
 <sup>Esse é um feedback gerado por IA, ele pode conter erros.</sup>
 
-Você tem 4 créditos restantes para usar o sistema de feedback AI.
+Você tem 3 créditos restantes para usar o sistema de feedback AI.
 
 # Feedback para HgrXKPT:
 
-Nota final: **28.7/100**
+Nota final: **89.6/100**
 
-Olá, HgrXKPT! 👋
+Olá, HgrXKPT! 🚀
 
-Primeiramente, gostaria de te parabenizar pelas conquistas que alcançou no desafio! 🎉 É muito bacana ver que você criou um template para exibir em requisições 404, incluindo uma âncora para a rota raiz. Isso mostra seu cuidado com os detalhes e sua criatividade, o que é incrível!
+Parabéns pela sua nota de **89.6/100**! Vamos analisar juntos o seu código para entendermos os pontos que precisam de atenção e também celebrar as conquistas que você alcançou. Vamos lá!
 
-Agora, vamos focar nos pontos que precisam de atenção. Vamos investigar juntos para entender a raiz de cada problema. Vamos lá:
+### 🎉 Conquistas Bônus:
+Antes de tudo, gostaria de destacar que você utilizou corretamente as tags `label` e o atributo `id` nos inputs 'nome', 'email', 'assunto' e 'mensagem' do formulário da rota `/contato (GET)`. Isso mostra atenção aos detalhes e uma ótima prática de desenvolvimento! 👏
 
-1. **Rota / - Deve retornar status code 200:** Ao analisar seu código, percebi que a rota `/` foi implementada corretamente, mas faltou definir o header `Content-Type` como `text/html`. Esse é um detalhe importante para garantir a correta exibição do conteúdo.
+### Requisitos que Precisam de Atenção:
+Vamos investigar juntos cada requisito que precisa de atenção:
+1. **Route: /api/lanches - deve retornar status code 200:**
+   - Verifique se a rota `/api/lanches` está retornando o status code 200 corretamente. Analise o tratamento de erros e o fluxo de execução nessa rota.
 
-2. **Rota /sugestao - Deve exibir o nome e ingredientes enviados via query string na página HTML:** Nesta rota, é fundamental que o nome e os ingredientes enviados via query string sejam exibidos na página HTML. Verifique se a lógica de exibição está correta para esses dados.
+2. **Route: /api/lanches - deve retornar header Content-type application/json:**
+   - Confira se o header `Content-Type` está sendo definido como `application/json` na rota `/api/lanches`. Verifique se essa definição está sendo feita adequadamente no seu código.
 
-3. **Rota /contato (GET) - Deve conter campos de input para nome, email, assunto e mensagem:** Aqui, é essencial que a rota `/contato` tenha os campos necessários no formulário. Verifique se todos os campos estão presentes e se estão corretamente configurados.
+3. **Route: /api/lanches - deve retornar um array de lanches:**
+   - Verifique se a rota `/api/lanches` está retornando um array de lanches. Analise o processo de leitura do arquivo JSON e a transformação dos dados em um array.
 
-4. **Rota /contato (POST) - A resposta final deve possuir status code 200 com Content-Type text/html:** Na rota de `/contato` para o método POST, notei que há um pequeno detalhe: você está enviando duas respostas com `res.status(200).send` e `res.status(200).send({...})`. É importante enviar apenas uma resposta para evitar conflitos.
+4. **Route: /api/lanches - deve retornar um array com pelo menos 3 lanches:**
+   - Confira se a rota `/api/lanches` está retornando um array com pelo menos 3 lanches. Revise a lógica que valida a quantidade de lanches retornados.
 
-5. **Rota /api/lanches - Deve retornar um array com pelo menos 3 lanches:** Ao analisar a rota `/api/lanches`, identifiquei que a validação do número mínimo de lanches não está ocorrendo corretamente. É importante garantir que o array contenha no mínimo 3 lanches.
+5. **Route: /api/lanches - cada objeto de lanche do array deve ter os seguinte atributos: id, nome ingredientes:**
+   - Verifique se cada objeto de lanche do array retornado na rota `/api/lanches` possui os atributos corretos: `id`, `nome` e `ingredientes`.
 
-Ao corrigir esses pontos, seu servidor Express.js estará mais próximo de atender a todos os requisitos solicitados. Lembre-se de sempre analisar a causa raiz de cada problema e fazer ajustes com base nisso. Estou aqui para te ajudar em cada etapa do processo! 💪
+6. **Route: /api/lanches - cada atributo deve possuir o data type correto e não ser vazio, 0 ou null:**
+   - Analise se os atributos de cada lanche no array possuem o tipo de dado correto e não estão vazios, iguais a 0 ou null. Revise a validação desses atributos.
 
-Continue com o ótimo trabalho e nunca deixe de aprender e evoluir. Estou aqui para qualquer dúvida que surgir no caminho. Você consegue! 🚀💡
+### 📝 Instruções Detalhadas:
+Lembre-se de revisar cada ponto mencionado acima no seu código. Se precisar de ajuda em algum ponto específico ou tiver dúvidas, estou aqui para auxiliar. Continue assim, focado em aprender e melhorar cada vez mais! Estou confiante de que você pode acertar esses detalhes e elevar ainda mais a qualidade do seu código. 💪
+
+Se tiver alguma dúvida ou precisar de mais orientações, fique à vontade para perguntar. Estou aqui para ajudar no que for necessário. O seu esforço e dedicação serão recompensados, então não desanime e siga em frente com determinação! 🚀💡
+
+Ótimo trabalho até aqui, HgrXKPT! Vamos juntos tornar o seu código ainda melhor. 👨‍💻✨
