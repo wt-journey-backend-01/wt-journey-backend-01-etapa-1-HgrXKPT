@@ -139,6 +139,7 @@ function errorProcessarSugestao(error,res) {
     console.error('Erro ao processar a sugestão:', error);
     res.status(500).send('Erro ao processar a sugestão.');
 }
+//
 
 function validarLanches(lanches){
     return (
