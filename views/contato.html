@@ -4,29 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Entre em contato!</h1>
-    <p>Preencha o formulário abaixo para entrar em contato conosco.</p>
-     <form action="/contato" method="POST">
-      
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
+    <header class="header-contato">
+            <h1>Dev Burger - Contato</h1>
+            
+        </header>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+    <main class="container">
+        
+        <p>Estamos aqui para ajudar! Preencha o formulário abaixo para entrar em contato conosco.</p>
 
-        <label for="assunto">Assunto:</label>
-        <input type="text" id="assunto" name="assunto" required>
+        <section class="container-form">
+            
+                <form action="/contato" method="POST" class="form-contato">
+                    
+                    <div class="form-group">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                
 
-        <label for="mensagem">Mensagem:</label>
-        <textarea id="mensagem" name="mensagem" required></textarea>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="assunto">Assunto:</label>
+                        <input type="text" id="assunto" name="assunto" required>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="mensagem">Mensagem:</label>
+                        <textarea id="mensagem" name="mensagem" required></textarea>
+                    </div>
+                
+                    <div class="form-group">
+                        <button type="submit">Enviar</button>
+                    </div>
+                
+                </form>
 
-        <button type="submit">Enviar</button>
-    </form>
 
-    <h1>Deseja voltar para o Inicio?</h1>
-<a href="/">Ir para o inicio</a>
+        </section>
+
+        <section class="button-voltar">
+              <h1>Deseja voltar para o Inicio?</h1>
+                <a href="/">Ir para o inicio</a>
+        </section>
+    </main>
+
+
+     
+
+  
 
     
 </body>

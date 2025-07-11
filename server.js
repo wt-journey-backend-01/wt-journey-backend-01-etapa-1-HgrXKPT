@@ -7,6 +7,7 @@ const { type } = require('os');
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 
 
@@ -52,14 +53,18 @@ app.get('/sugestao', (req, res) => {
 
 
 app.get('/contato', (req, res) => {
+    try{
+        res.status(200).sendFile(path.join(__dirname, 'views', 'contato.html'));
+    }catch (error){
+        res.status(500).send('Erro ao carregar a página de contato.');
+    }
     
-    res.status(200).sendFile(path.join(__dirname, 'views', 'contato.html'));
 });
 
 app.post('/contato', (req, res) => {
     const{ nome, email, assunto, mensagem } = req.body;
 
-        if (!nome) console.log("O campo [nome] é obrigatório");
+    if (!nome) console.log("O campo [nome] é obrigatório");
     if (!email) console.log("O campo [email] é obrigatório");
     if (!assunto) console.log("O campo [assunto] é obrigatório");
     if (!mensagem) console.log("O campo [mensagem] é obrigatório");

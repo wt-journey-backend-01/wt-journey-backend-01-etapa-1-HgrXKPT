@@ -1,0 +1,107 @@
+/* Reset básico para remover margens e paddings padrão */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Faz com que padding não afete a largura total */
+}
+
+/* Garante que o html e body ocupem 100% da altura da viewport */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Opcional: previne scroll horizontal */
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.container-header, p, .header-contato{
+    background-color: gray;
+    text-align: center;
+    font-size: 22px;
+    padding: 10px;
+    margin-bottom: 2px;
+}
+
+.container{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    margin-top: 10rem;
+    background-color: gray;
+   padding: 2rem;
+    gap: 2rem;
+    border-radius: 1rem;
+
+}
+
+.links{
+  display: flex;
+  flex-direction: row;
+}
+
+.form-sugestao{
+  display: flex;
+    font-size: 22px;
+    flex-direction:column;
+    gap: 10px;
+    
+    
+}
+.form-group{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.container-form{
+  gap: 1rem;
+}
+
+a {
+  background-color: black;
+  color: inherit;          
+  text-decoration: none; 
+  border-radius: 10px;  
+  padding: 0.5rem 1rem;
+}
+
+.button-voltar a{
+  color: white;
+  width: 50%;
+}
+
+.button-voltar{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-sugestao button, .form-contato button{
+  background-color: black;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+} 
+
+.form-sugestao input[type="text"] {
+  width: 200px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-contato input{
+  width: 200px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  
+}
+
+
+ 

@@ -4,29 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dev Burger</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     
-<h1>Bem-vindo ao Dev Burger!</h1>
-<p>Explore nossos deliciosos hambúrgueres e faça seu pedido online.</p>
-<p>Faça sugestões de sabores</p>
+    <header class="header-index">
+        <div class="container-header">
+                 <h1>Bem-vindo ao Dev Burger!</h1>
+            <p>Explore nossos deliciosos hambúrgueres e faça seu pedido online</p>
+            
+       
+        </div>
+   
+        
+    </header>
 
-<form action="/sugestao" method="GET">
+    <main class="container">
 
-    <label for="nome">Nome:</label>
-    <input type="text" id="Nome" name="nome" required>
+            <h1>Faça sua sugestão</h1>
+        <section class="container-form">
+                <form action="/sugestao" method="GET" class="form-sugestao">
 
-    <label for="ingredientes">Ingredientes:</label>
-    <input type="text" id="Ingredientes" name="ingredientes" required>
+                    <div class="form-group">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="Nome" name="nome" required>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="ingredientes">Ingredientes:</label>
+                        <input type="text" id="Ingredientes" name="ingredientes" required>
+                    </div>
 
-    <button type="submit">Enviar</button>
-</form>
+                    <div class="form-group">
+                        <button type="submit">Enviar</button>
+                    </div>
 
-<h1>Ver Cardapio</h1>
-<a href="/api/lanches">Ver cardapio</a>
+                    </form>
+                
+        </section>
 
-<h1>Deseja entrar em contato?</h1>
-<a href="/contato">Ir para o contato</a>
+            
+        
+            
+
+<section class="button-voltar">
+            <h1>Deseja entrar em contato?</h1>
+            <a href="/contato">Ir para o contato</a>
+        <div>
+
+
+        </div>
+</section>
+
+
+        
+
+
+
+
+
+
+
+
+    </main>
+
+
 
 </body>
 </html>
