@@ -8,9 +8,7 @@ const { type } = require('os');
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
-app.use((req, res, next) => {
-  res.status(404).sendFile(path.join(__dirname, "public", "404.html"));
-});
+
 
 
 app.get('/', (req, res) => {
@@ -136,6 +134,11 @@ app.get('/api/lanches', async (req, res) => {
         });
     }
 
+});
+
+
+app.use((req, res, next) => {
+  res.status(404).sendFile(path.join(__dirname, "public", "404.html"));
 });
 
 app.listen(PORT, () => {
