@@ -3,6 +3,7 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 const fs = require('fs');
+const { type } = require('os');
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true })); // Para formulários HTML
@@ -78,6 +79,8 @@ app.post('/contato', (req, res) => {
 });
 
 app.get('/api/lanches', async (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+
     try{
         const pathFile = path.join(__dirname, 'public', 'data', 'lanches.json');
         if (!fs.existsSync(pathFile)) {
@@ -91,22 +94,30 @@ app.get('/api/lanches', async (req, res) => {
 
         const lanchesArray = JSON.parse(data);
 
-        if(!Array.isArray(lanchesArray)){
-            res.status(500).json({
-                "status": "error",
-                "message": "O arquivo de lanches não contém um array válido."
-        });
-    }
+        if (!Array.isArray(lanchesArray)) {
+            throw new Error('O arquivo não contém um array válido');
+        }
 
+        
+        if (lanchesArray.length < 3) {
+            throw new Error('O array deve conter pelo menos 3 lanches');
+        }
 
+        
+        
+        const isvalid = lanchesArray.every(lanches =>
+            lanches && typeof 
+            lanches.id  === 'number' &&
+            typeof lanches.nome === 'string' &&
+            typeof lanches.ingredientes === 'string' &&
+            lanches.nome.trim() !== '' &&
+            lanches.ingredientes.trim() !== '');
 
-        res.status(200).json(
-            {
-                "status": "success",
-                "data": lanchesArray
-            }
+            if (!isvalid) {
+            throw new Error('Estrutura de dados inválida em um ou mais lanches');
+        }
 
-        );
+        res.status(200).json(lanchesArray);
     }catch (error) {
 
         
@@ -128,3 +139,13 @@ function errorProcessarSugestao(error,res) {
     console.error('Erro ao processar a sugestão:', error);
     res.status(500).send('Erro ao processar a sugestão.');
 }
+
+function validarLanches(lanches){
+    return (
+        lanches && typeof 
+        lanches.id  === 'number' &&
+        typeof lanches.nome === 'string' &&
+        typeof lanches.ingredientes === 'string' &&
+        lanches.trim() !== ''
+    );
+} 
