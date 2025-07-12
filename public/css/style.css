@@ -16,7 +16,7 @@ html, body {
 
 
 
-.container-header, p, .header-contato{
+.container-header, .p-header, .header-contato{
     background-color: gray;
     text-align: center;
     font-size: 22px;
@@ -71,12 +71,22 @@ a {
 
 .button-voltar a{
   color: white;
-  width: 50%;
+  width: 70%;
+  
+}
+
+.container-voltar{
+  display: flex;
+  flex-direction: column;
+  
+
+  gap: 0.5rem;
 }
 
 .button-voltar{
   display: flex;
   flex-direction: column;
+  
   gap: 1rem;
 }
 
@@ -101,6 +111,12 @@ a {
   border: 1px solid #ccc;
   border-radius: 5px;
   
+}
+
+.footer {
+  display: flex;
+  margin-top: auto;
+  justify-self: start;
 }
 
 
