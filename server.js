@@ -9,16 +9,12 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-
-
-
 app.get('/', (req, res) => {
     try{
         res.status(200).sendFile(path.join(__dirname, 'views', 'index.html'));
     }catch (error) {
         errorProcessarSugestao(error,res);
-    }
-    
+    }  
 });
 
 app.get('/sugestao', (req, res) => {
@@ -29,7 +25,6 @@ app.get('/sugestao', (req, res) => {
     if (!nome || !ingredientes) {
         return res.status(400).send('Nome e Ingredientes são obrigatórios.');
     };
-
     res.status(200).send(`
             <!DOCTYPE html>
             <html>
@@ -40,17 +35,12 @@ app.get('/sugestao', (req, res) => {
                 <a href="/">Voltar</a>
             </body>
             </html>
-        `);
-    
-         
+        `);       
     }catch (error) {
         errorProcessarSugestao(error,res);
-    }
-
-    
+    } 
    
 });
-
 
 app.get('/contato', (req, res) => {
     try{
@@ -83,17 +73,9 @@ app.post('/contato', (req, res) => {
             
         `);
     }
-    
-
     });
 
-
-
-
-
 app.get('/api/lanches', async (req, res) => {
-    
-
     try{
         const pathFile = path.join(__dirname, 'public', 'data', 'lanches.json');
         if (!fs.existsSync(pathFile)) {
@@ -102,10 +84,8 @@ app.get('/api/lanches', async (req, res) => {
                 "message": "Arquivo de lanches não encontrado."
             });
         }
-
         const data = await fs.promises.readFile(pathFile, 'utf8')
         let lanchesArray;
-
         try{
          lanchesArray = JSON.parse(data);
         } catch (parseError) {
@@ -115,34 +95,27 @@ app.get('/api/lanches', async (req, res) => {
             });
 
         }
-
         if (!Array.isArray(lanchesArray)) {
             return res.status(400).json({
                 status: "error",
                 message: "O arquivo não contém um array válido de lanches"
             });
-        }
-
-        
+        }     
         if (lanchesArray.length < 3) {
             return res.status(400).json({
                 status: "error",
                 message: "O array deve conter pelo menos 3 lanches"
             });
         }
-
-        
-        
         const isvalid = lanchesArray.every(lanches =>
             lanches && 
             typeof lanches.id  === 'number' &&
             typeof lanches.nome === 'string' &&
             typeof lanches.ingredientes === 'string' &&
             lanches.nome.trim() !== '' &&
-            lanches.ingredientes.trim() !== '' &&
+            lanches.ingredientes.trim() !== '' && 
             lanches.id > 0
         );
-
             if (!isvalid) {
             throw new Error('Estrutura de dados inválida em um ou mais lanches');
         }
@@ -187,14 +160,3 @@ function errorProcessarSugestao(error,res) {
     console.error('Erro ao processar a sugestão:', error);
     res.status(500).send('Erro ao processar a sugestão.');
 }
-//
-
-function validarLanches(lanches){
-    return (
-        lanches && typeof 
-        lanches.id  === 'number' &&
-        typeof lanches.nome === 'string' &&
-        typeof lanches.ingredientes === 'string' &&
-        lanches.trim() !== ''
-    );
-} 
